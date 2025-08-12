@@ -1,0 +1,37 @@
+Tasks
+1. Create a database named UniversityDB.
+
+2. Create a table named Students with the following columns and constraints:
+	student_id INT → Primary Key, Auto Increment.
+	name VARCHAR(50) → Cannot be NULL.
+	age INT → Must be greater than or equal to 18.
+	email VARCHAR(100) → Must be unique.
+	department VARCHAR(50) → Default value 'CSE'.
+	gpa DECIMAL(3,2) → Must be between 0.00 and 4.00.
+
+3. Insert at least 5 students into the table.
+	Make sure to have different departments (CSE, EEE, BBA, etc.).
+	Try to insert one duplicate email to test the constraint.
+4. Write SQL queries to:
+	1. Select all students in the CSE department.
+	2. Select students whose gpa is greater than 3.5.
+	3. Select students sorted by gpa in descending order.
+	4. Count the number of students in each department.
+	5. Get the top 3 students by GPA.
+	6. Find all students who belong to the CSE department and have a GPA greater than 3.50.
+	7. List the names and GPAs of students who are not in the BBA department.
+	8. Find all unique departments from the table.
+	9. Show all students whose names start with D.
+	10. Get all students whose GPA is between 3.00 and 3.80.
+	11. Count how many students are in each department.
+	12. Find the highest GPA in each department.
+	13. List the top 3 students based on GPA.
+	14. Find the second highest GPA in the entire table.
+	15. Get all students whose GPA is above the average GPA of all students.
+	16. Show students from the same department as "Alice 	Johnson".
+	17. Find students older than 20 who are in the EEE or Law department.
+	18. Sort all students by department (A–Z) and GPA (high to low).
+	19. Get the department with the highest average GPA.
+	20. Test constraints:
+		Try inserting a student with an age less than 18 (should fail).
+		Try inserting a duplicate email (should fail).
