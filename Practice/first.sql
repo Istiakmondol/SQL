@@ -20,5 +20,5 @@ values
 (1,"Nayem"),
 (2,"Mondol");
 select * from puple;
-show databases
-show tables
+show databases;
+show tables;
