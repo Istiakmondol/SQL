@@ -19,7 +19,8 @@ values
 ('Ethan Hunt', 23, 'ethan.hunt@example.com', 'EEE', 3.20),
 ('Frank Castle', 24, 'frank.castle@example.com', 'BBA', 3.40);
 /*This will fail due to duplicate email
-('gfctur jghvy', 39, 'bob.smith@example.com', 'EEE', 3.26);*/
+	('gfctur jghvy', 39, 'bob.smith@example.com', 'EEE', 3.26);
+*/
 
 -- all students from CSE department
 select *
@@ -60,7 +61,80 @@ where department!="BBA";
 
 -- All the unique departments.
 select distinct department
+from students;
+
+-- Show all students whose names start with D.
+select *
 from students
+where name like 'D%';
+
+-- Get all students whose GPA is between 3.00 and 3.80.
+select *
+from students
+where gpa between 3.00 and 3.80;
+
+-- Count how many students are in each department
+select department, count(*) as no_of_student
+from students
+group by department
+order by no_of_student desc;
+
+-- Find the highest GPA in each department
+select department, max(gpa) as height_GPA
+from students
+group by department;
+
+-- List the top 3 students based on GPA
+select *
+from students
+order by gpa desc
+limit 3;
+
+-- Find the second highest GPA in the entire table
+select *
+from students
+where gpa=(select max(gpa) from students where gpa<(select max(gpa) from students));
+
+select *
+from students
+where gpa=(select DISTINCT gpa from students order by gpa desc limit 1 offset 1);
+
+-- Get all students whose GPA is above the average GPA of all students
+select *
+from students
+where gpa > (select avg(gpa) from students);
+
+-- Show students from the same department as "Alice 	Johnson"
+SELECT name
+FROM students
+WHERE department = (
+    SELECT department
+    FROM students
+    WHERE name = 'Alice Johnson'
+);
+
+-- Find students older than 20 who are in the EEE or Law department
+select *
+from students
+where age > 20 and (department="EEE" or department="BBA");
+
+-- Sort all students by department (A–Z) and GPA (high to low).
+select *
+from students
+order by department asc, gpa desc;
+
+-- Get the department with the highest average GPA
+select department, round(avg(gpa),2) as dept_avg_gpa
+from students
+group by department
+having avg(gpa)= (select max(avg_gpa) from (select round(avg(gpa),2) as avg_gpa from students group by department) as dept_avg);
+
+
+
+
+
+
+
 
 
 
