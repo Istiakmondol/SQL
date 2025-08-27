@@ -124,10 +124,66 @@ from students
 order by department asc, gpa desc;
 
 -- Get the department with the highest average GPA
-select department, round(avg(gpa),2) as dept_avg_gpa
+select department, round(avg(gpa),2) as max_dept_avg_gpa
 from students
 group by department
-having avg(gpa)= (select max(avg_gpa) from (select round(avg(gpa),2) as avg_gpa from students group by department) as dept_avg);
+having round(avg(gpa),2)= (select max(dept_avg_gpa) from (select round(avg(gpa),2) as dept_avg_gpa from students group by department) as max_dept_avg);
+
+-- write a query to find avg gpa in each department in ascending order by dept.
+select department, round(avg(gpa),2) as avg_gpa
+from students
+group by department
+order by department asc;
+
+-- change all the grade from "A" to "O"
+set sql_safe_updates=0; /*safe mode turnes off*/
+update students
+set gpa=1.99
+where student_id=3;
+set sql_safe_updates=1; /*safe mode turnes on*/
+
+-- delete student whose gpa is less than 2.00
+set sql_safe_updates=0;/*safe mode turnes off*/
+delete from students
+where gpa<2.00;
+set sql_safe_updates=1;/*safe mode turnes on*/
+
+-- FOREIGN KEYS
+create table dept(
+	id int primary key,
+    name varchar(20)
+);
+create table teacher(
+	id int primary key,
+    name varchar(20),
+    dept_id int,
+    foreign key (dept_id) references dept(id)
+    on update cascade
+    on delete cascade
+);
+
+insert into dept
+(id,name)
+values
+(101, "Bangla"),
+(102, "English"),
+(103, "Science");
+select * from dept;
+
+insert into teacher
+(id,name,dept_id)
+values
+(1, "Bangla",101),
+(2, "English",102),
+(3, "Science",103),
+(4, "English",102);
+update dept
+set id=104
+where id=102;
+/* Now in teacher table English dept_id has changed to 104 from 102 due to the "ON UPDATE CASCADE" command.*/
+select * from teacher;
+
+
 
 
 
